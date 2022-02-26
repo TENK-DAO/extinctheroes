@@ -47,7 +47,7 @@ const NftItem = ({ item, onClick, isReveal, urlIpfs }) => {
           <img
             className="nft-item__img"
             src={`${urlIpfs}/${item.media}`}
-            alt="misfit"
+            alt="Extinct Heroes"
           />
 
           <div className="nft-item__footer">

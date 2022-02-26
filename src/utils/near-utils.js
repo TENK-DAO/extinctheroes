@@ -1,8 +1,10 @@
 /* eslint-disable */
 import * as nearAPI from 'near-api-js';
 import getConfig from '../config';
+import { Contract } from "tenk-nft";
+import { NEAR } from "near-units";
 
-export const { networkId, nodeUrl, walletUrl, contractName, contractMethods } =
+export const { networkId, nodeUrl, walletUrl, contractName } =
   getConfig();
 
 export const {
@@ -29,46 +31,27 @@ export const getWallet = async () => {
   return { near, wallet };
 };
 
-export const getContract = (account, methods = contractMethods) => {
-  return new nearAPI.Contract(account, contractName, {
-    ...methods,
-    sender: account.accountId,
-  });
+export const getContract = (account) => {
+  return new Contract(account, contractName);
 };
 
-export const getPrice = async (near) => {
-  const contract = await near.loadContract(contractName, {
-    ...contractMethods,
-  });
+export const getPrice = async (account) => {
+  const contract = getContract(account)
+  let oneNFT = "0";
+  let costLinkDrop = "0";
 
   let minter = "aa.near";
-
-  let [discount, tenTokenCost, tokenStorage, oneTokenCost, costLinkDrop] =
-    await Promise.all([
-      contract.discount({
-        num: 10,
-        minter
-      }),
-      contract.total_cost({ num: 10, minter }),
-      contract.token_storage_cost({}),
-      contract.cost_per_token({ num: 1, minter }),
-      contract.cost_of_linkdrop({ minter }),
+  try {
+     [oneNFT, costLinkDrop] = await Promise.all([
+      NEAR.from(await contract.total_cost({ num: 1, minter })),
+      NEAR.from(await contract.cost_of_linkdrop({ minter })),
     ]);
-
-  const discountFormat = formatNearAmount(discount);
-  const tenTokenFormat = formatNearAmount(tenTokenCost);
-  const oneTokenFormat = formatNearAmount(oneTokenCost);
-  const tokenStorageFormat = formatNearAmount(tokenStorage);
-
-  const price = {
-    oneNFT: oneTokenFormat - tokenStorageFormat,
-    manyNFTS: tenTokenFormat - 10 * tokenStorageFormat,
-    tokenStorageFormat,
-    discountFormat,
-    tenTokenCost,
-    oneTokenCost,
-    costLinkDrop: costLinkDrop,
-  };
-
-  return price;
+  
+    return {
+      oneNFT,
+      costLinkDrop,
+    };
+  } catch (e) {
+    return { oneNFT, costLinkDrop}
+  }
 };

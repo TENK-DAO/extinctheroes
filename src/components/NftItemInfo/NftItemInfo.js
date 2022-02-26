@@ -22,7 +22,7 @@ const NftItemInfo = ({ className, item, urlIpfs }) => {
           <img
             className="nft-item-info__image"
             src={`${urlIpfs}/${item.media}`}
-            alt="misfit"
+            alt="Extinct Heroes"
           />
         </div>
         <p className="nft-item-info__number">

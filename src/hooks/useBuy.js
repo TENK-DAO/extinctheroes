@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import {NEAR} from 'near-units';
 import useMintNft from './useMintNft';
 import useLinkDrop from './useLinkDrop';
 import { appStore } from '../state/app';
@@ -34,21 +35,10 @@ const useBuy = (isLinkDrop) => {
   };
 
   const formatPrice = (price) => {
-    const arrayFromPrice = price.toString().split('');
-    let formatedPrice = arrayFromPrice.join('');
-
-    price
-      .toString()
-      .split('')
-      .forEach((item, index, arr) => {
-        if (item === '.') {
-          const endIndex = index + 2 >= arr.length ? index + 2 : index + 3;
-          formatedPrice = arr.slice(0, endIndex).join('');
-        }
-      });
-
-    return formatedPrice;
-  };
+    const res = parseFloat(NEAR.from(price).toHuman()).toFixed(1).toString();
+    return res;
+  }
+    
 
   const handleNumberClick = (number) => {
     if (count === number) {

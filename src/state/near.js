@@ -10,7 +10,6 @@ export const {
   walletUrl,
   GAS,
   contractName,
-  contractMethods,
 } = getConfig();
 
 export const {
@@ -32,8 +31,7 @@ export const initNear =
   async ({ update, getState }) => {
     try {
       const { near, wallet } = await getWallet();
-
-      const price = await getPrice(near);
+      const price = await getPrice(wallet.account());
 
       wallet.signIn = (successUrl) => {
         wallet.requestSignIn({
@@ -41,7 +39,6 @@ export const initNear =
           contractId: contractName,
         });
       };
-
       const signOut = wallet.signOut;
       wallet.signOut = () => {
         signOut.call(wallet);
@@ -57,7 +54,14 @@ export const initNear =
       let account;
       if (wallet.signedIn) {
         account = wallet.account();
-        const contract = getContract(account, contractMethods);
+        const contract = getContract(account);
+        try {
+          await contract.nft_metadata();
+        } catch {
+          console.error(`contract ${contract.contractId} not connected`)
+          await update('', { wallet, account, contract, price, near });
+          return;
+        }
 
         wallet.balance = formatNearAmount(
           (await wallet.account().getAccountBalance()).available,
@@ -97,7 +101,6 @@ export const initNear =
 
         // if all tokens buy soldOut will be true
         const soldOut = tokensLeft === 0;
-
         // filter linkDrops that was used
         linkDropArray = linkDropArray.filter(({ isUsed }) => !isUsed);
 
@@ -108,6 +111,11 @@ export const initNear =
         );
 
         const state = getState();
+        const manyCount =
+        (await contract.remaining_allowance({
+          account_id: account.accountId,
+        })) ?? state.app.manyCount;
+
         const app = {
           ...state.app,
           misfitsArray,
@@ -115,6 +123,7 @@ export const initNear =
           linkDropArray,
           soldOut,
           tokensLeft,
+          manyCount
         };
 
         await update('', { app });

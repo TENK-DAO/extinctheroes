@@ -19,8 +19,8 @@ const BuyMore = ({ isLinkDrop }) => {
 
   const moreThenManyCount = app.tokensLeft >= app.manyCount;
   const textForMessage = moreThenManyCount
-    ? `select ${app.oneCount} or ${app.manyCount} extinct heroes`
-    : `select ${app.oneCount} extinct heroes`;
+    ? `select ${app.oneCount} or ${app.manyCount} Extinct Heroes`
+    : `select ${app.oneCount} Extinct Heroes`;
 
   return (
     <div className="buy-more">
