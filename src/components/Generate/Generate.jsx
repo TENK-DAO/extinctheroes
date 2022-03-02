@@ -23,9 +23,11 @@ const Generate = () => {
             NEAR Extinct Heroes are priced at a flat rate of {formatPrice(oneNFT)}{' '}
             NEAR.
           </p>
+          <h2 className="generate__title">First Connect Wallet</h2>
         </div>
-
+        
         <div className="generate__block">
+          
           {soldOut ? <GenerateSoldOut /> : <GenerateBlock />}
 
           <picture>

@@ -17,7 +17,16 @@ const Footer = () => {
 
         <p className="footer__built">Built on</p>
         <ReactSVG className="footer__logo" src={logo} />
+        <a
+          href="https://tenkbay.com/"
+          target="_blank"
+        > 
+        <picture>
 
+            <source srcSet="./images/logo-tenkbay.jpg, ./imageslogo-tenkbay.jpg" />
+            <img className="footer__tenk" src="./images/logo-tenkbay.jpg" alt="logo tenkbay"/>
+          </picture>
+        </a>
         <p className="footer__text">
           NEAR Extinct Heroes NFTs are built on top of NEAR Protocol, where minting
           NFTs cost less than a cent per item.
@@ -34,7 +43,7 @@ const Footer = () => {
         <a
           href="https://tenkbay.com/"
           target="_blank"
-        > Powered By TenkBay.com and Open Source Code.
+        > Powered By TenkBay and Open Source Code.
         </a>
         </p>
       </div>

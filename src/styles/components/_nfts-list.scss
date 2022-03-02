@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 60px;
-
+  
   @include for-laptop {
     gap: 30px;
     justify-content: center;

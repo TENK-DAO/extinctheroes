@@ -11,7 +11,7 @@ const GenerateCountBtn = ({ count, isActive, onClick, className }) => {
       onClick={onClick}
       className={`generate-count-btn ${classCount} ${classActive} ${className}`}
     >
-      <p>{count}</p>
+      <p>Mint {count}</p>
     </button>
   );
 };

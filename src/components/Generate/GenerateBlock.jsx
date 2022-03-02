@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import BuyMoreBtn from '../BuyMoreBtn';
 import GenerateCountBtn from '../GenerateCountBtn';
 import useBuy from '../../hooks/useBuy';
 import useMintNft from '../../hooks/useMintNft';
@@ -10,8 +9,6 @@ const GenerateBlock = () => {
   const {
     count,
     state,
-    showMessage,
-    setShowMessage,
     showCountAnimation,
     formatPrice,
     handleNumberClick,
@@ -23,17 +20,10 @@ const GenerateBlock = () => {
     if (!wallet.signedIn) {
       const successUrl = `${window.location.origin}/#generate-block`;
       wallet.signIn(successUrl);
-    } else if (!count) {
-      setShowMessage(true);
     } else {
       mintNft(count);
     }
   };
-
-  const moreThenManyCount = app.tokensLeft >= app.manyCount;
-  const textForMessage = moreThenManyCount
-    ? `select ${app.oneCount} or ${app.manyCount} Extinct Heroes`
-    : `select ${app.oneCount} Extinct Heroes`;
 
   return (
     <div id="generate-block" className="generate-block">
@@ -53,26 +43,9 @@ const GenerateBlock = () => {
       </div>
       <GenerateCountBtn
         count={app.oneCount}
-        onClick={() => handleNumberClick(app.oneCount)}
+        onClick={() => {handleNumberClick(app.oneCount);handleClick()}}
         isActive={count === app.oneCount}
       />
-
-      {/* Show this block only for NFT and only if tokens left more or equal manyCount ( 10 in our case ) */}
-      <BuyMoreBtn
-        onClick={handleClick}
-        text="Generate"
-        className="generate-block__button"
-      />
-      {showMessage && (
-        <div
-          className="generate-block__message"
-          style={{
-            transform: `translateX(${moreThenManyCount ? '0' : '30px'})`,
-          }}
-        >
-          {textForMessage}
-        </div>
-      )}
       <p>Tokens Left {app.tokensLeft}</p>
     </div>
   );

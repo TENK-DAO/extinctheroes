@@ -17,11 +17,6 @@ const Navigation = ({ className, signedIn }) => (
               My NFTs
             </Link>
           </li>
-          <li className="navigation__list-item">
-            <Link to="/link-drop" className="navigation__link">
-              LinkDrop
-            </Link>
-          </li>
         </>
       )}
     </ul>
