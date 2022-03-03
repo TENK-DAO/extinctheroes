@@ -10960,7 +10960,7 @@ tempy@^0.3.0:
     type-fest "^0.3.1"
     unique-string "^1.0.0"
 
-"tenk-nft@git+https://github.com/tenk-dao/tenk#release/extinctheroes":
+"tenk-nft@git+https://github.com/tenk-dao/tenk#release/eh":
   version "0.1.0"
   resolved "git+https://github.com/tenk-dao/tenk#f7aebeed6c6b064aa40a013364b15663700c1aa0"
 
