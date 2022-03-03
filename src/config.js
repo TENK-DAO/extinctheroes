@@ -1,4 +1,4 @@
-const contractName = process.env.REACT_APP_CONTRACT_NAME ||'pandas.tenk.testnet';
+const contractName = process.env.REACT_APP_CONTRACT_NAME ||'extinctheroes.tenk.testnet';
 
 export default function getConfig() {
   const config = {
