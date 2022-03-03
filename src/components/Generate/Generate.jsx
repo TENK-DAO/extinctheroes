@@ -15,7 +15,7 @@ const Generate = () => {
     <section className="generate" id="generate">
       <div className="generate__container">
         <div className="generate__information">
-          <h2 className="generate__title">Extinct Heroes</h2>
+          <h2 className="generate__title">NEAR Extinct Heroes</h2>
           <p className="generate__text">
           NEAR Extinct Heroes are 2000 gifted individuals in the metaverse with extraordinary abilities and weapons. NEH live on the $NEAR blockchain, and are the latest beings from their historical timeline.
           </p>
